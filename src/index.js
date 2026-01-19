@@ -4,6 +4,7 @@ const userRoutes = require("./modules/users/user.routes");
 const app = express();
 app.use(express.json());
 const { config } = require("./env/local");
+const { errorMiddleware } = require("./middleware/errorMiddleware");
 
 // Health check
 app.get("/", (req, res) => {
@@ -11,6 +12,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", userRoutes);
+
+app.use(errorMiddleware)
 
 // Start server after DB connection
 AppDataSource.initialize()
