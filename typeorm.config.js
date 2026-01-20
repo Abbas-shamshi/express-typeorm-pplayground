@@ -1,9 +1,8 @@
-require("reflect-metadata");
 const { DataSource } = require("typeorm");
-const { User } = require("./modules/users/user.entity");
-const { config } = require("./env/local");
+const { User } = require("./src/modules/users/user.entity");
+const { config } = require("./src/env/local");
 
-const AppDataSource = new DataSource({
+module.exports = new DataSource({
   type: config.db_config.type,
   host: config.db_config.host,
   port: config.db_config.port,
@@ -15,5 +14,3 @@ const AppDataSource = new DataSource({
   entities: [User],
   migrations: ["src/migration/*.js"],
 });
-
-module.exports = { AppDataSource };
